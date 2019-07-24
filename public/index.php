@@ -2,32 +2,40 @@
 session_start();
 
 use Bramus\Router\Router;
+use Twig\Extension\DebugExtension;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
 const __ROOT__ = __DIR__ . '/..';
 require __ROOT__ . '/vendor/autoload.php';
 
 $router = new Router();
+$loader = new FilesystemLoader(__ROOT__ . '/template');
+$twig = new Environment($loader, [
+    'debug' => true,
+    'cache' => __ROOT__ . '/template/cache'
+]);
+$twig->addExtension(new DebugExtension());
 
 $router->setBasePath('/');
-$router->get('/', function () {
-    echo 'home';
+$router->get('/', function () use ($twig)  {
+    $template = $twig->load('home.twig');
+    echo $template->render();
 });
 
 $router->post('/submit', function () {
     echo $_POST['url'];
 });
 
-$router->get('/about', function () {
-    echo 'About this app';
+$router->get('/new', function () use ($twig)  {
+    $template = $twig->load('new.twig');
+    echo $template->render();
 });
 
-$router->get('/new', function () {
-    echo <<<HTML
-<form method='post' action='/submit'>
-<input type='text' name='url' />
-<input type='submit' />
-</form>
-HTML;
+
+$router->get('/list', function () use ($twig)  {
+    $template = $twig->load('list.twig');
+    echo $template->render();
 });
 
 $router->run();
