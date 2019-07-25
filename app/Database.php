@@ -20,7 +20,7 @@ class Database {
      */
     public function listLinks()
     {
-        $sql = 'SELECT url, title, description FROM links';
+        $sql = 'SELECT url, title, description FROM links ORDER BY id DESC';
 
         return $this
             ->connection
@@ -28,6 +28,11 @@ class Database {
             ->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param $title
+     * @param $url
+     * @param $description
+     */
     public function save($title, $url, $description)
     {
         $sql = 'INSERT INTO links (title, url, description) VALUES (:title, :url, :description)';
