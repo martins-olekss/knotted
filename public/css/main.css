@@ -63,7 +63,7 @@ form {
     width: 200px;
 }
 
-input {
+input.text, input.submit {
     width: 100%;
     padding: 10px;
     border-radius: 4px;
@@ -75,3 +75,9 @@ input {
 input.text {
     background-color: #ececec;
 }
+
+input.checkbox {
+    background-color: #333;
+    border: 3px solid red;
+}
+

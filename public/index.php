@@ -30,7 +30,11 @@ $router->post('/submit', function () use ($database) {
         $_POST['url'],
         $_POST['description']);
 
-    header('location: /list');
+    if (isset($_POST['another'])) {
+        header('location: /new');
+    } else {
+        header('location: /list');
+    }
 });
 
 $router->get('/new', function () use ($twig)  {
