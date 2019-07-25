@@ -9,6 +9,7 @@ use Twig\Environment;
 const __ROOT__ = __DIR__ . '/..';
 require __ROOT__ . '/vendor/autoload.php';
 
+$database = new Database();
 $router = new Router();
 $loader = new FilesystemLoader(__ROOT__ . '/template');
 $twig = new Environment($loader, [
@@ -23,8 +24,13 @@ $router->get('/', function () use ($twig)  {
     echo $template->render();
 });
 
-$router->post('/submit', function () {
-    echo $_POST['url'];
+$router->post('/submit', function () use ($database) {
+    $database->save(
+        $_POST['title'],
+        $_POST['url'],
+        $_POST['description']);
+
+    header('location: /list');
 });
 
 $router->get('/new', function () use ($twig)  {
@@ -33,9 +39,10 @@ $router->get('/new', function () use ($twig)  {
 });
 
 
-$router->get('/list', function () use ($twig)  {
+$router->get('/list', function () use ($twig, $database)  {
     $template = $twig->load('list.twig');
-    echo $template->render();
+    $data = $database->listLinks();
+    echo $template->render(['list' => $data]);
 });
 
 $router->run();

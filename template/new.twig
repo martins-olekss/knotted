@@ -3,8 +3,14 @@
 {% block content %}
     <h1>New</h1>
     <form method='post' action='/submit'>
-        <label>
+        <label>URL
             <input type='text' name='url' />
+        </label>
+        <label>Title
+            <input type='text' name='title' />
+        </label>
+        <label>Description
+            <textarea cols="20" rows="3" name="description"></textarea>
         </label>
         <input type='submit' />
     </form>
