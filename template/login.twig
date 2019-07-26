@@ -1,0 +1,14 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form method='post' action='/loginSubmit'>
+        <label>Username
+            <input type='text' class="text" name='username' required />
+        </label>
+        <label>Passwords
+            <input type='password' class="text" name='password' required />
+        </label>
+        <input type='submit' class="submit" />
+    </form>
+{% endblock %}

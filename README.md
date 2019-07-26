@@ -12,3 +12,14 @@ create table links
   description text
 );
 ```
+
+## Create User table
+```sqlite
+create table user
+(
+  id       integer primary key autoincrement,
+  name     varchar(500),
+  username varchar(250),
+  password text
+);
+```

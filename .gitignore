@@ -2,3 +2,4 @@
 vendor
 template/cache/*
 *.sqlite3
+*.log

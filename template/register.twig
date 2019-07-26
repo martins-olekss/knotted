@@ -1,0 +1,17 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <h1>Register</h1>
+    <form method='post' action='/registerSubmit'>
+        <label>Username
+            <input type='text' class="text" name='username' required/>
+        </label>
+        <label>Password
+            <input type='password' class="text" name='password' required/>
+        </label>
+        <label>Confirm password
+            <input type='password' class="text" name='confirm_password' required/>
+        </label>
+        <input type='submit' class="submit" />
+    </form>
+{% endblock %}

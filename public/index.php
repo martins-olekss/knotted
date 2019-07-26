@@ -49,4 +49,35 @@ $router->get('/list', function () use ($twig, $database)  {
     echo $template->render(['list' => $data]);
 });
 
+$router->get('/login', function () use ($twig)  {
+    $template = $twig->load('login.twig');
+    echo $template->render();
+});
+
+$router->post('/loginSubmit', function () use ($database) {
+    $user = new User($database);
+    $accessGranted = $user->loginUser($_POST);
+    if ($accessGranted) {
+        header('location: /new');
+    } else {
+        header('location: /list');
+    }
+});
+$router->get('/register', function () use ($twig)  {
+    $template = $twig->load('register.twig');
+    echo $template->render();
+});
+
+$router->post('/registerSubmit', function () use ($database) {
+    $accessGranted = false;
+    $user = new User($database);
+    $user->registerUser($_POST);
+
+    if ($accessGranted) {
+        header('location: /');
+    } else {
+        header('location: /');
+    }
+});
+
 $router->run();
