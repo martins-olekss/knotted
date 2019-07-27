@@ -55,7 +55,7 @@ class Database {
         $statement = $this->connection->prepare($sql);
         $statement->execute(array($username));
 
-        return $statement->fetch();
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     /**

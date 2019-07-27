@@ -22,50 +22,32 @@ class User
     }
 
     /**
-     * @param $id
-     */
-    public function getUserById($id)
-    {
-    }
-
-    /**
      * @param $post
      * @return bool
      */
     public function registerUser($post)
     {
+        App::log(json_encode($post));
         if (empty($post['username'])) {
             return false;
         }
         if (empty($post['password'])) {
             return false;
         }
-        if (empty($post['password_confirm'])) {
+        if (empty($post['confirm_password'])) {
             return false;
         }
 
-        App::log('start registration');
-
         $username = (string)filter_input(INPUT_POST, 'username');
         $password = $post['password'];
-        $passwordConfirm = $post['password_confirm'];
+        $passwordConfirm = $post['confirm_password'];
 
         if ($password === $passwordConfirm) {
-            App::log('passwords match');
-            // Allow to register
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
             return $this->db->registerUser($username, $passwordHash);
         } else {
             return false;
         }
-
-    }
-
-    /**
-     *
-     */
-    public function deleteUser()
-    {
     }
 
     /**
@@ -74,22 +56,19 @@ class User
     public function loadUser($userData)
     {
         $this->setId($userData['id']);
-        $this->setEmail($userData['email']);
+        $this->setUsername($userData['username']);
         $this->setPasswordHash($userData['password']);
     }
 
     /**
-     * @param $email
+     * @param $username
      * @return $this
      */
-    public function getUserByUsername($email)
+    public function getUserByUsername($username)
     {
-        $userData = $this->db->getUserByUsername($email);
-        // validate user data
-        // if problems, return false
-
+        $userData = $this->db->getUserByUsername($username);
+        // TODO: Validate user data, if problems, return false
         App::log($userData);
-
         $this->loadUser($userData);
 
         return $this;
@@ -116,8 +95,6 @@ class User
             return false;
         }
 
-        App::log(password_hash($password, PASSWORD_DEFAULT));
-        App::log($this->passwordHash);
         if (password_verify($password, $this->passwordHash)) {
             $_SESSION['id'] = $this->id;
             $_SESSION['username'] = $this->username;
@@ -141,11 +118,11 @@ class User
     }
 
     /**
-     * @param $email
+     * @param $username
      */
-    private function setEmail($email)
+    private function setUsername($username)
     {
-        $this->email = $email;
+        $this->username = $username;
     }
 
     /**
