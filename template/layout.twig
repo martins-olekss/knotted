@@ -5,22 +5,21 @@
 </head>
 <body>
 <div class="header">
-    {% if session.username is defined %}
-        <span>Hello, {{ session.username }}</span>
-    {% endif %}
     <div class="navigation">
         <ul>
             <li><a href="/">home</a></li>
             <li><a href="/list">list</a></li>
-            <li><a href="/new">new</a></li>
             <li><a href="/login">login</a></li>
             <li><a href="/register">register</a></li>
-            <li><a href="/logout">logout</a></li>
+            {% if session.id is defined %}
+                <li><a href="/new">new</a></li>
+                <li><a href="/logout">logout</a></li>
+                <li><span>{{ session.username }}</span></li>
+            {% endif %}
         </ul>
     </div>
 </div>
 <div class="wrapper">
-
     <div class="content">
         {% block content %}{% endblock %}
     </div>

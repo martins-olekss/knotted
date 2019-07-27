@@ -37,6 +37,13 @@ $router->post('/submit', function () use ($database) {
     }
 });
 
+$router->before('GET|POST', '/new', function() {
+    if (!isset($_SESSION['id'])) {
+        header('location: /login');
+        exit();
+    }
+});
+
 $router->get('/new', function () use ($twig) {
     $template = $twig->load('new.twig');
     echo $template->render();
