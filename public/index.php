@@ -92,4 +92,9 @@ $router->post('/registerSubmit', function () use ($database) {
     }
 });
 
+$router->get('/deleteSubmit/{linkId}', function ($id) use ($database) {
+    App::log('deleting' . $id);
+    $database->deleteLink($id);
+});
+
 $router->run();

@@ -20,7 +20,7 @@ class Database {
      */
     public function listLinks()
     {
-        $sql = 'SELECT url, title, description FROM links ORDER BY id DESC';
+        $sql = 'SELECT id, url, title, description FROM links ORDER BY id DESC';
 
         return $this
             ->connection
@@ -70,6 +70,22 @@ class Database {
         try {
             $q = $this->connection->prepare($sql);
             $q->execute(array(':username' => $username, ':password' => $passwordHash, ':name' => $name));
+        } catch (Exception $e) {
+            App::log($e->getMessage());
+
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public function deleteLink($id)
+    {
+        $sql = 'DELETE FROM links WHERE id = ?';
+        try {
+            $q = $this->connection->prepare($sql);
+            $q->execute(array($id));
         } catch (Exception $e) {
             App::log($e->getMessage());
 
