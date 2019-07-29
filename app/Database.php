@@ -51,7 +51,7 @@ class Database {
      */
     public function getUserByUsername($username)
     {
-        $sql = 'SELECT id, name, username, password FROM user WHERE username = ? LIMIT 1';
+        $sql = 'SELECT id, name, username, password, is_active FROM user WHERE username = ? LIMIT 1';
         $statement = $this->connection->prepare($sql);
         $statement->execute(array($username));
 

@@ -9,6 +9,7 @@ class User
     private $id;
     private $username;
     private $passwordHash;
+    private $isActive;
 
     /**
      * User constructor.
@@ -58,6 +59,7 @@ class User
         $this->setId($userData['id']);
         $this->setUsername($userData['username']);
         $this->setPasswordHash($userData['password']);
+        $this->setIsActive($userData['is_active']);
     }
 
     /**
@@ -92,6 +94,11 @@ class User
         $this->getUserByUsername($username);
         App::log('this id ' . $this->id);
         if (!$this->id) {
+            return false;
+        }
+        App::log($this->isActive);
+        if ((int)$this->isActive !== 1) {
+            App::log('Inactive user');
             return false;
         }
 
@@ -131,5 +138,13 @@ class User
     private function setPasswordHash($passwordHash)
     {
         $this->passwordHash = $passwordHash;
+    }
+
+    /**
+     * @param $isActive
+     */
+    private function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
     }
 }

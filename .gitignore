@@ -3,3 +3,4 @@ vendor
 template/cache/*
 *.sqlite3
 *.log
+config/main.sample.ini
