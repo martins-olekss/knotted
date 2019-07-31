@@ -28,7 +28,6 @@ class User
      */
     public function registerUser($post)
     {
-        App::log(json_encode($post));
         if (empty($post['username'])) {
             return false;
         }
@@ -70,7 +69,6 @@ class User
     {
         $userData = $this->db->getUserByUsername($username);
         // TODO: Validate user data, if problems, return false
-        App::log($userData);
         $this->loadUser($userData);
 
         return $this;
@@ -92,13 +90,12 @@ class User
         $username = $post['username'];
         $password = $post['password'];
         $this->getUserByUsername($username);
-        App::log('this id ' . $this->id);
         if (!$this->id) {
             return false;
         }
         App::log($this->isActive);
         if ((int)$this->isActive !== 1) {
-            App::log('Inactive user');
+            App::log($username . ' is inactive user');
             return false;
         }
 

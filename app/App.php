@@ -39,4 +39,22 @@ class App
 
         return $post;
     }
+
+    public static function verifyRegisterKey()
+    {
+        $config = parse_ini_file("../config/main.ini");
+        if (!$config) {
+            self::log('Config not set');
+
+            return false;
+        }
+        if (!isset($_COOKIE['key']) || $_COOKIE['key'] !== $config['registerKey']) {
+            self::log('Missing or incorrect key');
+
+            return false;
+        }
+        self::log('Provided key ' . $_COOKIE['key']);
+
+        return true;
+    }
 }

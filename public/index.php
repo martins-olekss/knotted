@@ -35,6 +35,7 @@ $router->post('/submit', function () use ($database) {
     } else {
         header('location: /list');
     }
+    exit();
 });
 
 $router->before('GET|POST', '/new', function() {
@@ -68,11 +69,13 @@ $router->post('/loginSubmit', function () use ($database) {
     } else {
         header('location: /list');
     }
+    exit();
 });
 
 $router->get('/logout', function () use ($twig) {
     session_unset();
     header('location: /');
+    exit();
 });
 
 $router->get('/register', function () use ($twig) {
@@ -81,19 +84,22 @@ $router->get('/register', function () use ($twig) {
 });
 
 $router->post('/registerSubmit', function () use ($database) {
-    App::log('submit register');
+    if (!App::verifyRegisterKey()) {
+        header('location: /');
+        exit();
+    }
     $user = new User($database);
     $accessGranted = $user->registerUser($_POST);
-
     if ($accessGranted) {
+        App::log('Registration done using ' . $_COOKIE['key']);
         header('location: /');
     } else {
         header('location: /');
     }
+    exit();
 });
 
 $router->get('/deleteSubmit/{linkId}', function ($id) use ($database) {
-    App::log('deleting' . $id);
     $database->deleteLink($id);
 });
 
