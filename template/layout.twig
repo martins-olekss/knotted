@@ -1,16 +1,14 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
     <title>Knotted Link App</title>
 </head>
 <body>
 <div class="header">
     <div class="navigation">
         <ul>
-            <li><a href="/">home</a></li>
-            <li><a href="/list">list</a></li>
+            <li><a href="/">list</a></li>
             <li><a href="/login">login</a></li>
-            <li><a href="/register">register</a></li>
             {% if session.id is defined %}
                 <li><a href="/new">new</a></li>
                 <li><a href="/logout">logout</a></li>
