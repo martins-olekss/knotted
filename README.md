@@ -1,7 +1,6 @@
 # knotted
 Silly little link app
 
-
 ## Create Links table
 ```sqlite
 create table links
@@ -17,9 +16,11 @@ create table links
 ```sqlite
 create table user
 (
-  id       integer primary key autoincrement,
-  name     varchar(500),
-  username varchar(250),
-  password text
+  id        integer primary key autoincrement,
+  name      varchar(500),
+  username  varchar(250),
+  password  text,
+  is_active integer default 0
 );
+create unique index user_username_uindex on user (username);
 ```

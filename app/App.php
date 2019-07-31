@@ -6,6 +6,7 @@
 class App
 {
     const LOG_FILE = 'main.log';
+    const CONFIG_FILE = '../config/main.ini';
 
     /**
      * @param $message
@@ -42,7 +43,7 @@ class App
 
     public static function verifyRegisterKey()
     {
-        $config = parse_ini_file("../config/main.ini");
+        $config = parse_ini_file(self::CONFIG_FILE);
         if (!$config) {
             self::log('Config not set');
 
